@@ -1,37 +1,28 @@
 # $Id$
 # Contributor: Donald Carr<sirspudd@gmail.com>
 # Contributor: Alexey Andreyev <aa13q@ya.ru>
+# Contributor: Chupligin Sergey (NeoChapay) <neochapay@gmail.com>
 # Maintainer: James Kittsmiller (AJSlye) <james@nulogicsystems.com>
 
-#set -o errexit
-#set -o xtrace
-
-pkgname=qt5-connman-git
-pkgver=20211220.04f72d5
+pkgname=libconnman-qt
+pkgver=1.2.46
 pkgrel=1
 pkgdesc='Qt Quick wrappers for connman'
 arch=('x86_64' 'aarch64')
 url="https://github.com/sailfishos/libconnman-qt"
 license=('GPL')
-provides=('libconnman-qt' 'qt5-connman')
-conflicts=('libconnman-qt' 'qt5-connman')
 depends=('qt5-declarative' 'connman')
-makedepends=('git' 'qt5-tools')
-source=("${pkgname}::git+${url}")
-sha256sums=('SKIP')
-
-pkgver () {
-  cd ${srcdir}/${pkgname}
-  echo "$(git log -1 --format="%cd" --date=short | tr -d '-').$(git log -1 --format="%h")"
-}
+makedepends=('qt5-tools')
+source=("${url}/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('c38a935a99f8e548c7012b0e91a465f6127e3c400e8bc59c7f6f1683d524e26c')
 
 build() {
-    cd ${srcdir}/${pkgname}
-    qmake
+    cd $pkgname-$pkgver
+    qmake -r VERSION=${pkgver}
     make
 }
 
 package() {
-    cd ${srcdir}/${pkgname}
+    cd $pkgname-$pkgver
     make -j 1 INSTALL_ROOT="$pkgdir" install 
 }
