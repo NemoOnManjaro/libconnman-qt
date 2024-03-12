@@ -5,20 +5,20 @@
 # Maintainer: James Kittsmiller (AJSlye) <james@nulogicsystems.com>
 
 pkgname=libconnman-qt
-pkgver=1.3.3
+pkgver=1.3.5
 pkgrel=1
 pkgdesc='Qt Quick wrappers for connman'
 arch=('x86_64' 'aarch64')
 url="https://github.com/sailfishos/libconnman-qt"
 license=('GPL')
-depends=('qt5-declarative' 'connman')
-makedepends=('qt5-tools')
+depends=('qt6-declarative' 'connman')
+makedepends=('qt6-tools')
 source=("${url}/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('9ae031c4248b8ca48383204c12d89e18a9e6680ddd69ba7c94da46fd5ad6cc90')
+sha256sums=('c07d31e202ee7cdf4687bcaf40aa40e05793b0a40401be8b8e580259cd738da3')
 
 build() {
     cd $pkgname-$pkgver
-    qmake -r VERSION=${pkgver}
+    qmake6 -r VERSION=${pkgver}
     make
 }
 
